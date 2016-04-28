@@ -1,8 +1,9 @@
 Pod::Spec.new do |s|
   s.ios.deployment_target = '5.0'
   s.osx.deployment_target = '10.7'
+  s.tvos.deployment_target = '9.0'
   s.name     = 'SYOperationQueue'
-  s.version  = '1.0.0'
+  s.version  = '1.0.1'
   s.license  = 'Custom'
   s.summary  = 'An operation queue subclass that allows LIFO style queuing and a max number of operations'
   s.homepage = 'https://github.com/dvkch/SYOperationQueue'

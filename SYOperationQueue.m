@@ -62,13 +62,13 @@
     for (NSInteger i = 0; i < numberOfAvailableSlots; ++i)
     {
         NSOperation *operation = [self nextOperationToRun];
-        [_lock lock];
         if ([self.mutableOperations containsObject:operation]) {
+            [_lock lock];
             [operation removeObserver:self forKeyPath:@"isFinished"];
             [self.mutableOperations removeObject:operation];
+            [_lock unlock];
             [self.queue addOperation:operation];
         }
-        [_lock unlock];
     }
 }
 

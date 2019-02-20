@@ -62,16 +62,13 @@
     for (NSInteger i = 0; i < numberOfAvailableSlots; ++i)
     {
         NSOperation *operation = [self nextOperationToRun];
+        [operation removeObserver:self forKeyPath:@"isFinished"];
+
         [_lock lock];
-        if ([self.mutableOperations containsObject:operation]) {
-            [operation removeObserver:self forKeyPath:@"isFinished"];
-            [self.mutableOperations removeObject:operation];
-            [_lock unlock];
-            [self.queue addOperation:operation];
-        } else {
-            [_lock unlock];
-        }
+        [self.mutableOperations removeObject:operation];
+        [_lock unlock];
         
+        [self.queue addOperation:operation];
     }
 }
 
@@ -129,7 +126,7 @@
 
 #pragma mark - Public methods
 
-- (NSArray<NSOperation *> *)operations
+- (NSArray<NSOperation *> * _Nonnull)operations
 {
     NSMutableArray *operations = [NSMutableArray array];
     [operations addObjectsFromArray:self.queue.operations];
@@ -139,7 +136,7 @@
     return [operations copy];
 }
 
-- (NSUInteger)operationCount
+- (NSInteger)operationCount
 {
     NSUInteger totalCount = self.queue.operationCount;
     [_lock lock];
@@ -203,7 +200,7 @@
     [self processOperations];
 }
 
-- (void)addOperationWithBlock:(void (^)(void))block
+- (void)addOperationWithBlock:(void(^ _Nonnull)(void))block
 {
     NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:block];
     [self addOperation:op];

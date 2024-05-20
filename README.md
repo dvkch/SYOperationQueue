@@ -9,27 +9,23 @@ I made it to allow loading images in a large `UICollectionView` while scrolling.
 Header
 =========
 
-This queue doesn't inherit from `NSOperationQueue` but should expose a similar enough interface to easily switch between the two.
+This queue doesn't inherit from `OperationQueue` but should expose a similar enough interface to easily switch between the two.
 
-	typedef enum : NSUInteger {
-	    SYOperationQueueModeFIFO,
-	    SYOperationQueueModeLIFO,
-	} SYOperationQueueMode;
-	
-	@interface SYOperationQueue : NSObject
-	
-	@property (readonly, copy) NSArray <__kindof NSOperation *> *operations;
-	@property (readonly) NSUInteger operationCount;
-	@property (getter=isSuspended) BOOL suspended;
-	@property (copy) NSString *name;
-	
-	@property (nonatomic) NSInteger maxConcurrentOperationCount;
-	@property (nonatomic) NSInteger maxSurvivingOperations;
-	@property (nonatomic) SYOperationQueueMode mode;
-	
-	- (void)addOperation:(__kindof NSOperation *)op;
-	- (void)addOperationWithBlock:(void(^)(void))block;
-	- (void)cancelAllOperations;
-	
-	@end
+```swift
+public class SYOperationQueue {
+    public enum Mode {
+        case fifo, lifo
+    }
+    public var mode: Mode = .fifo
+    public var name: String?
+    public var operations: [Operation]
+    public var operationsCount: Int
+    public var isSuspended: Bool
+    public var maxConcurrentOperationCount: Int
+    public var maxSurvivingOperations: Int = 0 // 0 means no limit
 
+	public func add(operation: Operation)
+	public func addOperation(closure: @escaping () -> Void)
+	public func cancelAllOperations()
+}
+ ```

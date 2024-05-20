@@ -23,8 +23,8 @@ public class SYOperationQueue {
     public var maxSurvivingOperations: Int = 0 // 0 means no limit
 
     // Methods
-    public func add(operation: Operation)
-    public func addOperation(closure: @escaping () -> Void)
-    public func cancelAllOperations()
+    public func add(operation: Operation) {}
+    public func addOperation(closure: @escaping () -> Void) {}
+    public func cancelAllOperations() {}
 }
  ```

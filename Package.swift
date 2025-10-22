@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "SYOperationQueue",
     platforms: [
-        .iOS(.v10),
-        .tvOS(.v10)
+        .iOS(.v12),
+        .tvOS(.v12)
     ],
     products: [
         .library(name: "SYOperationQueue", targets: ["SYOperationQueue"]),

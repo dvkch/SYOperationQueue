@@ -28,3 +28,7 @@ public class SYOperationQueue {
     public func cancelAllOperations() {}
 }
  ```
+
+ ## License
+
+ MPL-2.0
